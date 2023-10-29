@@ -26,20 +26,6 @@ async function run() {
 const collection = run().catch(console.error);
 
 
-const getInsertUsersDB = async () => {
-  try {
-    // Insert data directly
-    const result = await collection.insertMany([
-        { userName: "abcd", password: "efgh" },
-      ]);
-  
-      console.log(`${result.insertedCount} documents inserted.`);
-  } catch (e) {
-    new Error(e.message);
-  }
-};
-
-
 const getInsertToDoDB = async () => {
     try {
     // Insert data directly
@@ -53,36 +39,6 @@ const getInsertToDoDB = async () => {
     }
   };
 
-  
-const getSelectUsersDB = async (SearchWord) => {
-  try {
-    const query = {
-      name: {
-        username: "1234",
-        password: "5678"
-      }
-    };
-  const result = await collection.find(query);
-
-  // Use toArray to convert the cursor to an array for easier processing
-  const documents = await result.toArray();
-
-  if (documents.length === 0) {
-      console.log("Email or password is incorrect.");
-      return null
-} else {
-    documents.forEach(document => {
-    const result = [document.name, document.value]
-    console.log(document);
-    return result
-    });
-  }  
-  } catch (err) {
-    return console.error('An error occurred:', err);
-  } finally {
-    await client.close();
-  }
-}
 
 const getSelectToDoDB = async (SearchWord) => {
     try {
@@ -114,4 +70,4 @@ const getSelectToDoDB = async (SearchWord) => {
     }
   }
 
-module.exports = { getInsertUsersDB, getInsertToDoDB, getSelectUsersDB, getSelectToDoDB};
+module.exports = {getInsertToDoDB, getSelectToDoDB};
