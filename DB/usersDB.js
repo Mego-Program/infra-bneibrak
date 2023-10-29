@@ -1,11 +1,11 @@
-import {MongoClient} from "mongodb";
+import { MongoClient } from "mongodb";
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-userName = process.env.DB_USERNAME;
-password = process.env.DB_PASSWORD;
-cluster = process.env.CLUSTER_URI;
+const userName = process.env.DB_USERNAME;
+const password = process.env.DB_PASSWORD;
+const cluster = process.env.CLUSTER_URI;
 
 const client = new MongoClient(`mongodb+srv://${userName}:${password}${cluster}`);
 
@@ -15,61 +15,63 @@ async function run() {
     await client.connect();
     
     // Access your database and collection
-    const db = client.db('UniversalDictionary');
-    const collection = db.collection('EnglishToHebrew');
-    return collection
+    const db = client.db('ToDoDB');
+    const collection = db.collection('users');
+    return collection;
   } catch (err) {
-    return console.error('An error occurred:', err);
+    throw new Error('An error occurred: ' + err);
   }
 }
-
-const collection = run().catch(console.error);
 
 
 const getInsertUsersDB = async () => {
   try {
+    const collection = await run();
     // Insert data directly
     const result = await collection.insertMany([
-        { userName: "abcd", password: "efgh" },
-      ]);
-  
-      console.log(`${result.insertedCount} documents inserted.`);
+      { userName: "abcd", password: "efgh" },
+    ]);
+
+    console.log(`${result.insertedCount} documents inserted.`);
   } catch (e) {
-    new Error(e.message);
-  }
-};
-
-
-  
-const getSelectUsersDB = async (SearchWord) => {
-  try {
-    const query = {
-      name: {
-        username: "1234",
-        password: "5678"
-      }
-    };
-  const result = await collection.find(query);
-
-  // Use toArray to convert the cursor to an array for easier processing
-  const documents = await result.toArray();
-
-  if (documents.length === 0) {
-      console.log("Email or password is incorrect.");
-      return null
-} else {
-    documents.forEach(document => {
-    const result = [document.name, document.value]
-    console.log(document);
-    return result
-    });
-  }  
-  } catch (err) {
-    return console.error('An error occurred:', err);
+    throw new Error(e.message);
   } finally {
     await client.close();
   }
 }
 
+const getSelectUsersDB = async (userName, password) => {
+  //userName = "abcd"
+  //password = "efgh"
+  try {
+    const collection = await run();
+    const query = {
+      name: {
+        username: userName,
+        password: password,
+      }
+    };
+    const result = await collection.find(query);
 
-module.exports = { getInsertUsersDB, getSelectUsersDB};
+    // Use toArray to convert the cursor to an array for easier processing
+    const documents = await result.toArray();
+
+    if (documents.length === 0) {
+      console.log("Email or password is incorrect.");
+      return null;
+    } else {
+      return documents.map(document => ({
+        name: document.name,
+        value: document.value
+      }));
+    }
+  } catch (err) {
+    throw new Error('An error occurred: ' + err);
+  } finally {
+    await client.close();
+  }
+}
+
+//getInsertUsersDB();
+//getSelectUsersDB();
+//module.exports = { getInsertUsersDB, getSelectUsersDB};

@@ -3,9 +3,9 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-userName = process.env.DB_USERNAME;
-password = process.env.DB_PASSWORD;
-cluster = process.env.CLUSTER_URI;
+const userName = process.env.DB_USERNAME;
+const password = process.env.DB_PASSWORD;
+const cluster = process.env.CLUSTER_URI;
 
 const client = new MongoClient(`mongodb+srv://${userName}:${password}${cluster}`);
 
@@ -15,8 +15,8 @@ async function run() {
     await client.connect();
     
     // Access your database and collection
-    const db = client.db('UniversalDictionary');
-    const collection = db.collection('EnglishToHebrew');
+    const db = client.db('ToDoDB');
+    const collection = db.collection('ToDo');
     return collection
   } catch (err) {
     return console.error('An error occurred:', err);
