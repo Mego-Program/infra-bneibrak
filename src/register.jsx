@@ -1,28 +1,34 @@
-import React, { useState } from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import axios from 'axios';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import axios from "axios";
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
         Your Website
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
@@ -30,21 +36,21 @@ function Copyright(props) {
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#F6C927'
+      main: "#F6C927",
     },
-    background: {default: '#0A0A1B'},
-  }
+    background: { default: "#0A0A1B" },
+  },
 });
 
-
 export default function SignUp() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState('')
-  const [success, setSuccess] = useState('')
-  const [token, setToken] = useState('')
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState("");
+  const [success, setSuccess] = useState("");
+  const [token, setToken] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -54,26 +60,25 @@ export default function SignUp() {
       email: email,
       password: password,
     };
-   
+
     try {
-      const response = await axios.post('http://localhost:5000/register', data);
+      const response = await axios.post("http://localhost:5000/register", data);
       const receivedToken = response.data.token;
-      setToken(receivedToken); 
-      console.log(token)
-      setSuccess(response.data.msg)
-      setErrors('')
-     
+      setToken(receivedToken);
+      navigate(`/userTitle?email=${encodeURIComponent(email)}`);
+
+      console.log(token);
+      setSuccess(response.data.msg);
+      setErrors("");
     } catch (error) {
       if (error.response && error.response.data && error.response.data.errors) {
-        
-        setErrors(error.response.data.errors.join(', ')); 
-        setSuccess('');
+        setErrors(error.response.data.errors.join(", "));
+        setSuccess("");
       } else {
-        console.error('Undetected error', error.message);
+        console.error("Undetected error", error.message);
       }
     }
-   
-  }
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -82,18 +87,24 @@ export default function SignUp() {
         <Box
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: theme.palette.primary.main }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5" color='#F6C927'>
+          <Typography component="h1" variant="h5" color="#F6C927">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }} color='#F6C927'>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+            color="#F6C927"
+          >
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -106,7 +117,11 @@ export default function SignUp() {
                   onChange={(e) => setFirstName(e.target.value)}
                   inputProps={{
                     placeholder: "First Name",
-                    style: { color: '#F6C927', placeholder: 'primary', background: '#21213E'} 
+                    style: {
+                      color: "#F6C927",
+                      placeholder: "primary",
+                      background: "#21213E",
+                    },
                   }}
                   autoFocus
                 />
@@ -122,7 +137,11 @@ export default function SignUp() {
                   autoComplete="family-name"
                   inputProps={{
                     placeholder: "Last Name",
-                    style: { color: '#F6C927', placeholder: 'pramery', background: '#21213E'} 
+                    style: {
+                      color: "#F6C927",
+                      placeholder: "pramery",
+                      background: "#21213E",
+                    },
                   }}
                 />
               </Grid>
@@ -137,7 +156,11 @@ export default function SignUp() {
                   onChange={(e) => setEmail(e.target.value)}
                   inputProps={{
                     placeholder: "Email Address",
-                    style: { color: '#F6C927', placeholder: 'pramery', background: '#21213E'} 
+                    style: {
+                      color: "#F6C927",
+                      placeholder: "pramery",
+                      background: "#21213E",
+                    },
                   }}
                 />
               </Grid>
@@ -153,13 +176,23 @@ export default function SignUp() {
                   onChange={(e) => setPassword(e.target.value)}
                   inputProps={{
                     placeholder: "Password",
-                    style: { color: '#F6C927', placeholder: 'pramery', background: '#21213E'} 
+                    style: {
+                      color: "#F6C927",
+                      placeholder: "pramery",
+                      background: "#21213E",
+                    },
                   }}
                 />
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" label="Primary" color='primary' />}
+                  control={
+                    <Checkbox
+                      value="allowExtraEmails"
+                      label="Primary"
+                      color="primary"
+                    />
+                  }
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />
               </Grid>
@@ -176,19 +209,19 @@ export default function SignUp() {
               <Grid item>
                 <Link href="/" variant="body2">
                   Already have an account? Sign in
-                </Link>  
+                </Link>
               </Grid>
             </Grid>
             <Typography component="p" variant="p" color="error">
-                  {errors}
-                </Typography>
-                <Typography component="p" variant="p" color="green">
-                  {success}
-                </Typography>
+              {errors}
+            </Typography>
+            <Typography component="p" variant="p" color="green">
+              {success}
+            </Typography>
           </Box>
         </Box>
-      <Copyright sx={{ mt: 8, mb: 4 }} />
-    </Container>
-  </ThemeProvider>
+        <Copyright sx={{ mt: 8, mb: 4 }} />
+      </Container>
+    </ThemeProvider>
   );
 }
