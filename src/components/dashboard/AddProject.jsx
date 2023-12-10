@@ -4,8 +4,7 @@ import TextSnippetIcon from '@mui/icons-material/TextSnippet';
 
 export const AddProject = (props) => (
   <Card
-    sx={{ height: '100%' , background: '#21213E'
-}}
+    sx={{ height: '100%' , background: '#21213E' }}
     {...props}
   >
     <CardContent>

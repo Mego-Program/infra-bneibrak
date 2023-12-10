@@ -3,6 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import { Button, Container, CssBaseline, Grid, Typography } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 import { cl } from '../App';
+import { api } from "../App";
 
 const ImageUploader = () => {
   const [selectedImage, setSelectedImage] = useState(null);

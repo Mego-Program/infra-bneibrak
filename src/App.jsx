@@ -17,6 +17,8 @@ import cloudinary from 'cloudinary-core';
 
 
 export const cl = new cloudinary.Cloudinary({ cloud_name: 'megobb' });
+export const api = import.meta.env.VITE_API_URL
+console.log(api)
 
 const App = () => {
   
@@ -27,6 +29,7 @@ const App = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    console.log('start...')
     setReload(prev => prev+1); 
     const fetchData = async () => {
       const response = await checkToken();
@@ -85,7 +88,7 @@ const App = () => {
             <Route path="/register" element={<SignUp />} />
             <Route path='/currentProfile' element={<CurrentProfile key={reload}/>} />
             <Route path='/updateProfile' element={<UpdateProfile />} />
-            {/* <Route path="/Projects/*" element={<Layout /> } /> */}
+            <Route path="/Projects/*" element={<Layout /> } />
           </>
         )}
       </Routes>  

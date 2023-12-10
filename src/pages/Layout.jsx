@@ -3,7 +3,7 @@ import Sidebar from "../components/SideBar";
 import SearchBar from "../components/SearchBar";
 import UserMenu from "../components/UserMenu";
 import Grid from "@mui/material/Grid";
-// import ProjectsApp from 'project_app/App'
+import ProjectsApp from 'project_app/App'
 import {useLocation} from 'react-router-dom';
 import { Dashboard } from "./Dashboard";
 
@@ -50,11 +50,11 @@ export default function Layout() {
             {/* You can further divide this row into columns as needed */}
             <Grid item xs={3}></Grid> 
             <Grid item xs={9} style={{ marginLeft: "-5%" }}>
-            {/* {window.location.pathname == '/dashboard'? ( <Dashboard  /> ):(
+            {window.location.pathname == '/dashboard'? ( <Dashboard  /> ):(
             <ProjectsApp key={reload} />)
-            } */}
-              <Dashboard />
-             
+            }
+              {/* <Dashboard />
+              */}
             </Grid>
             <Grid item xs={2}></Grid> {/* Adjust the column size as needed */}
           </Grid>

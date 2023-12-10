@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Typography, Button, ListItemIcon, Container, Box, CssBaseline } from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import { api } from "../App";
 
 const CurrentProfile = () => {
   const navigateTo = useNavigate();
@@ -12,7 +13,7 @@ const CurrentProfile = () => {
 
   useEffect(() => {
     const fetchProfileData = async () => {
-        const response = await axios.get('http://localhost:5000/api/users/me');
+        const response = await axios.get(`${api}/api/users/me`);
 
         // Check if the response status is OK (200)
         if (response.status !== 200) {

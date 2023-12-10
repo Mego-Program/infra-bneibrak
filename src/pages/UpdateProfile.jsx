@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import axios from "axios";
+import { api } from "../App";
 import {
   Dialog,
   DialogActions,
@@ -60,7 +61,7 @@ const UpdateProfile = () => {
    
     const fetchUserData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/users/me");
+        const response = await axios.get(`${api}/api/users/me`);
 
         if (response.status !== 200) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -84,7 +85,7 @@ const UpdateProfile = () => {
   const handleSoftDelete = async () => {
     try {
       // Send a delete request to soft delete the user profile
-      await axios.put("http://localhost:5000/api/users/deleteProfile");
+      await axios.put(`${api}/api/users/deleteProfile`);
       // Set isDeleted to true to prevent further data fetching
       localStorage.removeItem("authToken");
       navigateTo("/");
@@ -132,7 +133,7 @@ const UpdateProfile = () => {
 
       // Send a put request to update the user profile
       const responsePut = await axios.put(
-        "http://localhost:5000/api/users/profileUpdate",
+        `${api}/api/users/profileUpdate`,
         data
       );
       setSuccess(responsePut.data.message);
