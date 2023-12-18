@@ -3,7 +3,7 @@ import Sidebar from "../components/SideBar";
 import SearchBar from "../components/SearchBar";
 import UserMenu from "../components/UserMenu";
 import Grid from "@mui/material/Grid";
-import ProjectsApp from 'project_app/App'
+// import ProjectsApp from 'project_app/App'
 import {useLocation} from 'react-router-dom';
 import { Dashboard } from "./Dashboard";
 
