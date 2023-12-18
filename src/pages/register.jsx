@@ -53,7 +53,7 @@ export default function SignUp() {
 
     try {
       const response = await axios.post(
-        `${api}api/users/register`,
+        `${api}/api/users/register`,
         data
       );
       setSuccess(response.data.message);
