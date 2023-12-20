@@ -59,7 +59,7 @@ export default function SignUp() {
       setSuccess(response.data.message);
       setErrors("");
       setTimeout(() => {
-        navigateTo("/");
+        navigateTo("/login");
       }, 1000);
     } catch (error) {
       if (error.response && error.response.data && error.response.data.errors) {
@@ -196,7 +196,7 @@ export default function SignUp() {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="/" variant="body2">
+              <Link href="/login" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>

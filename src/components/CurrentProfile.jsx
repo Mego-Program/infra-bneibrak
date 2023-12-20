@@ -14,13 +14,15 @@ const CurrentProfile = () => {
   useEffect(() => {
     const fetchProfileData = async () => {
         const response = await axios.get(`${api}/api/users/me`);
+        console.log('response: ', response.data.result);
 
         // Check if the response status is OK (200)
         if (response.status !== 200) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const { firstName, lastName, email, title } = response.data.result;
+        const { firstName, lastName, email, title } = response.data.result[0];
+        console.log(firstName, lastName, email, title );
 
         // Set profile data from the response
         setProfileData({ firstName, lastName, email, title });
