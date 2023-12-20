@@ -14,13 +14,18 @@ import ImageUploader from './pages/ImageUploader';
 import CurrentProfile from './components/CurrentProfile';
 import {useLocation} from 'react-router-dom';
 import cloudinary from 'cloudinary-core';
-
+import Navigating from './pages/navigation';
 
 export const cl = new cloudinary.Cloudinary({ cloud_name: 'megobb' });
+
 export const api = import.meta.env.VITE_API_URL
 console.log(api)
 
+
 const App = () => {
+  
+
+  console.log('start....')
   
   
   const navigateTo = useNavigate();
@@ -29,11 +34,10 @@ const App = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    console.log('start...')
     setReload(prev => prev+1); 
     const fetchData = async () => {
       const response = await checkToken();
-      if (response === 200 && (window.location.pathname === '/' || window.location.pathname === '/register')) navigateTo('/dashboard');
+      if (response === 200 && (window.location.pathname === '/login' || window.location.pathname === '/register')) navigateTo('/dashboard');
       setIsLoaded(true);
     };
 
@@ -55,7 +59,7 @@ const App = () => {
         return response;
       },
       (error) => {
-        if (error.response && error.response.status === 401 && !['/register', '/', '/userTitle'].includes(window.location.pathname)) {
+        if (error.response && error.response.status === 401 && !['/register', '/', '/userTitle', '/login'].includes(window.location.pathname)) {
           setTimeout(() => {
             console.log('You are not authorized');
             navigateTo('/');
@@ -84,7 +88,8 @@ const App = () => {
             <Route path="/imageLoader" element={<ImageUploader />} />
             <Route path="/userTitle" element={<UserTitle />} />
             <Route path="/dashboard" element={<Layout />} />
-            <Route path="/" element={<SignIn />} />
+            <Route path="/" element={<Navigating />} />
+            <Route path="/login" element={<SignIn />} />
             <Route path="/register" element={<SignUp />} />
             <Route path='/currentProfile' element={<CurrentProfile key={reload}/>} />
             <Route path='/updateProfile' element={<UpdateProfile />} />

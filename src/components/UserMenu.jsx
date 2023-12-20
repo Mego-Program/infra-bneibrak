@@ -119,12 +119,13 @@ const UserMenu = () => {
     const fetchProfileData = async () => {
       try {
         const response = await axios.get(`${api}/api/users/me`);
+        console.log('response: ', response.data.result);
 
         if (response.status !== 200) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const { firstName, lastName, title } = response.data.result;
+        const { firstName, lastName, title } = response.data.result[0];
         setProfileData({ firstName, lastName, title });
         setFirstLetter(firstName[0]);
       } catch (error) {

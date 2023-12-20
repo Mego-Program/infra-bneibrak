@@ -59,10 +59,11 @@ export default function SignIn() {
       setErrors("");
       setSuccess(response.data.message);
       const title = response.data.title;
+      console.log('title: ', response)
       if (title) {
-        navigateTo("/dashboard");
+        navigateTo('/dashboard');
       } else {
-        navigateTo(`/userTitle`);
+        navigateTo('/userTitle');
       }
     } catch (error) {
       setErrors(error.response.data.message);
