@@ -118,7 +118,8 @@ const UserMenu = () => {
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const response = await axios.get(`${api}/api/users/me`);
+        const token = localStorage.getItem('authToken')
+        const response = await axios.get(`${api}/api/users/me`, {headers: token});
         console.log('response: ', response.data.result);
 
         if (response.status !== 200) {
