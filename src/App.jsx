@@ -95,7 +95,7 @@ const App = () => {
             <Route path='/currentProfile' element={<CurrentProfile />} />
             <Route path='/updateProfile' element={<UpdateProfile />} />
             <Route path="/dashboard" element={<Layout component={<Dashboard />} />} />
-            <Route path="/ChatList" element={<Layout component={<CommunicationApp />} />} />
+            <Route path="/messages" element={<Layout component={<CommunicationApp />} />} />
             <Route path="/Projects/*" element={<Layout component={<ProjectsApp />} />} />
           </>
         )}
