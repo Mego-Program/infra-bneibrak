@@ -6,18 +6,19 @@ import { Ongoing } from '../components/dashboard/Ongoing.jsx';
 import { TotalProjects } from '../components/dashboard/TotalProjects.jsx';
 import { AddIssue } from '../components/dashboard/AddIssue.jsx';
 import { LatestOrders } from '../components/dashboard/latest.jsx'
-import { ChartGraph} from '../components/dashboard/chart.jsx'
+import { ChartGraph } from '../components/dashboard/chart.jsx'
+import { NavLink } from 'react-router-dom';
 
-export const Dashboard = () => ( 
+export const Dashboard = () => (
   <>
     <Box
       component="main"
-      
+
       sx={{
         flexGrow: 1,
         py: 8,
         background: '#0A0A1B',
-        
+
       }}
     >
       <Container maxWidth={false}>
@@ -25,15 +26,6 @@ export const Dashboard = () => (
           container
           spacing={3}
         >
-        <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
-            <AddProject />
-          </Grid>    
           <Grid
             item
             lg={3}
@@ -41,6 +33,19 @@ export const Dashboard = () => (
             xl={3}
             xs={12}
           >
+            <NavLink to={"/Projects/creatProject"} 
+            style={{ color: "#F6C927", textDecoration: "none" }}>
+              <AddProject />
+            </NavLink>
+          </Grid>
+          <Grid
+            item
+            lg={3}
+            sm={6}
+            xl={3}
+            xs={12}
+          >
+
             <AddIssue />
           </Grid>
           <Grid
@@ -61,7 +66,7 @@ export const Dashboard = () => (
           >
             <Ongoing />
           </Grid>
-         
+
           <Grid
             item
             lg={8}
@@ -78,7 +83,7 @@ export const Dashboard = () => (
             sm={6}
             xs={12}
           >
-            <TotalProjects  />
+            <TotalProjects />
           </Grid>
           <Grid
             item
@@ -87,7 +92,7 @@ export const Dashboard = () => (
             xl={3}
             xs={12}
           >
-            <ChartGraph  />
+            <ChartGraph />
           </Grid>
           <Grid
             item

@@ -15,43 +15,98 @@ import {
   Tooltip
 } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 // import { SeverityPill } from '../severity-pill';
 
-const orders = [
-  {
-    id: uuid(),
-    ref: 'CDD1049',
-    amount: 30.5,
-    customer: {
-      name: 'Ekaterina Tankova'
-    },
-    createdAt: 1555016400000,
-    status: 'pending'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1048',
-    amount: 25.1,
-    customer: {
-      name: 'Cao Yu'
-    },
-    createdAt: 1555016400000,
-    status: 'delivered'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1047',
-    amount: 10.99,
-    customer: {
-      name: 'Alexa Richardson'
-    },
-    createdAt: 1554930000000,
-    status: 'refunded'
-  },
-  
+const token = localStorage.getItem("authToken");
+// console.log("token: " + token)
+const apiProject = import.meta.env.VITE_SERVER_URL;
+
+const { headers } = [
+    {
+        'Authorization': 'Happy',
+        'Content-Type': 'application/json; charset=utf-8',
+    }
 ];
 
-export const LatestOrders = (props) => (
+let userID = ''
+
+
+try {
+    const response = await axios.get(`${apiProject}/users/self`,
+    {
+        headers: {
+            'Authorization': token,
+            'Content-Type': 'application/json; charset=utf-8',
+        }
+    })
+        // console.log(response)
+        // console.log('user id:', response.data.result[0]._id);
+        userID = response.data.result[0]._id;}
+    catch(error) {
+        console.error('error: ', error);
+    };
+
+const UrlDataBoard = `${apiProject}/board/user/${userID}/read`;
+
+// const orders = [
+//   {
+//     id: uuid(),
+//     ref: 'CDD1049',
+//     amount: 30.5,
+//     customer: {
+//       name: 'Ekaterina Tankova'
+//     },
+//     createdAt: 1555016400000,
+//     status: 'pending'
+//   },
+//   {
+//     id: uuid(),
+//     ref: 'CDD1048',
+//     amount: 25.1,
+//     customer: {
+//       name: 'Cao Yu'
+//     },
+//     createdAt: 1555016400000,
+//     status: 'delivered'
+//   },
+//   {
+//     id: uuid(),
+//     ref: 'CDD1047',
+//     amount: 10.99,
+//     customer: {
+//       name: 'Alexa Richardson'
+//     },
+//     createdAt: 1554930000000,
+//     status: 'refunded'
+//   },
+  
+// ];
+
+export const LatestOrders = (props) => {
+
+  
+  const [projects, setProjects] = useState([]);
+
+
+  useEffect(() => {
+      fetchProjects();
+  }, [])
+
+  const fetchProjects = () => {
+      axios.get(UrlDataBoard, { headers })
+          .then(response => {
+            setProjects(response.data)
+              console.log("Mendy", response.data)
+          })
+          .catch(error => {
+              console.error('Error fetching JSON file:', error);
+          })
+  }
+  console.log(projects)
+
+  return(
   <Card  sx={{ width:'100%', background: '#21213E' ,color: "#F6C927"
 }} {...props}>
     <CardHeader title="Latest Projects" />
@@ -63,21 +118,17 @@ export const LatestOrders = (props) => (
               <TableCell>
                 Projects
               </TableCell>
-              <TableCell>
+              {/* <TableCell>
                 User
-              </TableCell>
+              </TableCell> */}
               <TableCell sortDirection="desc">
                 <Tooltip
                   enterDelay={300}
                   title="Sort"
                 >
-                  <TableSortLabel
-                    active
-                    direction="desc"
-                   
-                  >
-                    Date
-                  </TableSortLabel>
+                  <TableCell>
+                Date
+              </TableCell>
                 </Tooltip>
               </TableCell>
               <TableCell>
@@ -86,19 +137,19 @@ export const LatestOrders = (props) => (
             </TableRow>
           </TableHead>
           <TableBody  >
-            {orders.map((order) => (
+            {projects.map((project) => (
               <TableRow
                 hover
-                key={order.id}
+                key={project._id}
               >
                 <TableCell>
-                  {order.ref}
+                  {project.name}
                 </TableCell>
+                {/* <TableCell>
+                  {project.name}
+                </TableCell> */}
                 <TableCell>
-                  {order.customer.name}
-                </TableCell>
-                <TableCell>
-                  {format(order.createdAt, 'dd/MM/yyyy')}
+                  {project.creationDate}
                 </TableCell>
                 <TableCell>
                 </TableCell>
@@ -125,4 +176,4 @@ export const LatestOrders = (props) => (
       </Button>
     </Box>
   </Card>
-);
+)};
