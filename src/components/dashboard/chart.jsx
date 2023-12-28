@@ -4,15 +4,86 @@ import { Box, Card, CardContent, CardHeader, Divider, Typography, Grid } from '@
 import LaptopMacIcon from '@mui/icons-material/LaptopMac';
 import PhoneIcon from '@mui/icons-material/Phone';
 import TabletIcon from '@mui/icons-material/Tablet';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { token, apiProject, headers} from './try';
 
 Chart.register(ArcElement)
-export const ChartGraph = (props) => {
- 
 
+let userID = ''
+try {
+  const response = await axios.get(`${apiProject}/users/self`,
+    {
+      headers: {
+        'Authorization': token,
+        'Content-Type': 'application/json; charset=utf-8',
+      }
+    })
+
+  userID = response.data.result[0]._id;
+}
+catch (error) {
+  console.error('error: ', error);
+};
+
+const UrlDataBoard = `${apiProject}/board/user/${userID}/read`;
+
+export const ChartGraph = (props) => {
+//#################################################
+useEffect(() => {
+  fetchProjects();
+}, [])
+
+const [countTasks, steCountTasks] = useState({
+  'totalTasks':0,
+  "Open": 0,
+  "Closed": 0,
+  "In Progress": 0,
+  "Resolved": 0
+})
+
+const fetchProjects = () => {
+  axios.get(UrlDataBoard, { headers })
+    .then(response => {
+
+
+      let statusCount = {
+        'totalTasks':0,
+        "Open": 0,
+        "Closed": 0,
+        "In Progress": 0,
+        "Resolved": 0
+      };
+
+      const projects = response.data;
+
+      projects.forEach(project => {
+        const tasks = project.tasks;
+        const taskslength = project.tasks.length
+        statusCount['totalTasks'] += taskslength;
+
+        tasks.forEach(task => {
+          statusCount[task.status.name]++;
+        });
+      });
+
+
+      steCountTasks(statusCount)
+    })
+    .catch(error => {
+      console.error('Error fetching JSON file:', error);
+    });
+};
+const percent = 100 / countTasks.totalTasks;
+const ProjectsIssues = Math.floor(countTasks.Open * percent);
+const ProjectsDone = Math.floor((countTasks.Closed + countTasks.Resolved) * percent);
+const Ongoing = Math.floor(countTasks["In Progress"] * percent);
+// console.log(percent, ProjectsIssues, ProjectsDone, Ongoing)
+//#################################################
   const data = {
     datasets: [
       {
-        data: [63, 15, 22],
+        data: [ProjectsIssues, ProjectsDone, Ongoing],
         backgroundColor: ['#3F51B5', '#e53935', '#FB8C00'],
         borderWidth: 8,
         borderColor: '#FFFFFF',
@@ -43,23 +114,24 @@ export const ChartGraph = (props) => {
       titleFontColor:'#E53935'
     }
   };
+ 
 
   const devices = [
     {
       title: 'Projects Issues',
-      value: 63,
+      value: ProjectsIssues,
       icon: LaptopMacIcon,
       color: '#3F51B5'
     },
     {
-      title: 'Projects Done',
-      value: 15,
+      title: 'Issues Done',
+      value: ProjectsDone,
       icon: TabletIcon,
       color: '#E53935'
     },
     {
-      title: 'Ongoing',
-      value: 23,
+      title: 'Tasks Ongoing',
+      value: Ongoing,
       icon: PhoneIcon,
       color: '#FB8C00'
     }

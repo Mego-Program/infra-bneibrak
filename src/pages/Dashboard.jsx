@@ -4,10 +4,11 @@ import { AddProject } from '../components/dashboard/AddProject.jsx';
 import { Sales } from '../components/dashboard/sales.jsx';
 import { Ongoing } from '../components/dashboard/Ongoing.jsx';
 import { TotalProjects } from '../components/dashboard/TotalProjects.jsx';
-import { AddIssue } from '../components/dashboard/AddIssue.jsx';
+import { TotalTasks } from '../components/dashboard/totalTasks.jsx';
 import { LatestOrders } from '../components/dashboard/latest.jsx'
 import { ChartGraph } from '../components/dashboard/chart.jsx'
 import { NavLink } from 'react-router-dom';
+import { TotalIsuse } from '../components/dashboard/totalIsuse.jsx';
 
 export const Dashboard = () => (
   <>
@@ -46,7 +47,7 @@ export const Dashboard = () => (
             xs={12}
           >
 
-            <AddIssue />
+            <TotalTasks />
           </Grid>
           <Grid
             item
@@ -55,7 +56,7 @@ export const Dashboard = () => (
             xl={3}
             xs={12}
           >
-            <TotalProjects />
+            <TotalIsuse />
           </Grid>
           <Grid
             item

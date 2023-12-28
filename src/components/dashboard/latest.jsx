@@ -18,35 +18,27 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 // import { SeverityPill } from '../severity-pill';
+import { token, apiProject, headers} from './try';
 
-const token = localStorage.getItem("authToken");
-// console.log("token: " + token)
-const apiProject = import.meta.env.VITE_SERVER_URL;
-
-const { headers } = [
-    {
-        'Authorization': 'Happy',
-        'Content-Type': 'application/json; charset=utf-8',
-    }
-];
 
 let userID = ''
 
 
 try {
-    const response = await axios.get(`${apiProject}/users/self`,
+  const response = await axios.get(`${apiProject}/users/self`,
     {
-        headers: {
-            'Authorization': token,
-            'Content-Type': 'application/json; charset=utf-8',
-        }
+      headers: {
+        'Authorization': token,
+        'Content-Type': 'application/json; charset=utf-8',
+      }
     })
-        // console.log(response)
-        // console.log('user id:', response.data.result[0]._id);
-        userID = response.data.result[0]._id;}
-    catch(error) {
-        console.error('error: ', error);
-    };
+  // console.log(response)
+  // console.log('user id:', response.data.result[0]._id);
+  userID = response.data.result[0]._id;
+}
+catch (error) {
+  console.error('error: ', error);
+};
 
 const UrlDataBoard = `${apiProject}/board/user/${userID}/read`;
 
@@ -81,99 +73,101 @@ const UrlDataBoard = `${apiProject}/board/user/${userID}/read`;
 //     createdAt: 1554930000000,
 //     status: 'refunded'
 //   },
-  
+
 // ];
 
 export const LatestOrders = (props) => {
 
-  
+
   const [projects, setProjects] = useState([]);
 
 
   useEffect(() => {
-      fetchProjects();
+    fetchProjects();
   }, [])
 
   const fetchProjects = () => {
-      axios.get(UrlDataBoard, { headers })
-          .then(response => {
-            setProjects(response.data)
-              console.log("Mendy", response.data)
-          })
-          .catch(error => {
-              console.error('Error fetching JSON file:', error);
-          })
+    axios.get(UrlDataBoard, { headers })
+      .then(response => {
+        setProjects(response.data)
+        // console.log("Mendy", response.data)
+      })
+      .catch(error => {
+        console.error('Error fetching JSON file:', error);
+      })
   }
-  console.log(projects)
+  // console.log(projects)
 
-  return(
-  <Card  sx={{ width:'100%', background: '#21213E' ,color: "#F6C927"
-}} {...props}>
-    <CardHeader title="Latest Projects" />
-    <PerfectScrollbar>
-      <Box sx={{ minWidth: 800 }}>
-        <Table >
-          <TableHead>
-            <TableRow>
-              <TableCell>
-                Projects
-              </TableCell>
-              {/* <TableCell>
-                User
-              </TableCell> */}
-              <TableCell sortDirection="desc">
-                <Tooltip
-                  enterDelay={300}
-                  title="Sort"
-                >
-                  <TableCell>
-                Date
-              </TableCell>
-                </Tooltip>
-              </TableCell>
-              <TableCell>
-                Status
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody  >
-            {projects.map((project) => (
-              <TableRow
-                hover
-                key={project._id}
-              >
+  return (
+    <Card sx={{
+      width: '100%', background: '#21213E', color: "#F6C927"
+    }} {...props}>
+      <CardHeader title="Latest Projects" />
+      <PerfectScrollbar>
+        <Box sx={{ minWidth: 800 }}>
+          <Table >
+            <TableHead>
+              <TableRow>
                 <TableCell>
-                  {project.name}
+                  Projects
                 </TableCell>
                 {/* <TableCell>
-                  {project.name}
-                </TableCell> */}
-                <TableCell>
-                  {project.creationDate}
+                User
+              </TableCell> */}
+                <TableCell sortDirection="desc">
+                  <Tooltip
+                    enterDelay={300}
+                    title="Sort"
+                  >
+                    <TableCell>
+                      Date
+                    </TableCell>
+                  </Tooltip>
                 </TableCell>
                 <TableCell>
+                  Status
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Box>
-    </PerfectScrollbar>
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        p: 2
-      }}
-    >
-      <Button
-        color="primary"
-        endIcon={<ArrowRightIcon fontSize="small" />}
-        size="small"
-        variant="text"
+            </TableHead>
+            <TableBody  >
+              {projects.map((project) => (
+                <TableRow
+                  hover
+                  key={project._id}
+                >
+                  <TableCell>
+                    {project.name}
+                  </TableCell>
+                  {/* <TableCell>
+                  {project.name}
+                </TableCell> */}
+                  <TableCell>
+                    {project.creationDate}
+                  </TableCell>
+                  <TableCell>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Box>
+      </PerfectScrollbar>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          p: 2
+        }}
       >
-        View all
-      </Button>
-    </Box>
-  </Card>
-)};
+        <Button
+          color="primary"
+          // endIcon={<ArrowRightIcon fontSize="small" />}
+          size="small"
+          variant="text"
+        >
+          {/* View all */}
+        </Button>
+      </Box>
+    </Card>
+  )
+};
