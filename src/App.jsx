@@ -17,7 +17,7 @@ import cloudinary from 'cloudinary-core';
 import Navigating from './pages/navigation';
 import { Dashboard } from "./pages/Dashboard";
 import ProjectsApp from 'project_app/App'
-import CommunicationApp from 'message_app/App1'
+import CommunicationApp from 'message_app/App'
 
 export const cl = new cloudinary.Cloudinary({ cloud_name: 'megobb' });
 export const api = import.meta.env.VITE_API_URL

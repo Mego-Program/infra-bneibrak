@@ -18,6 +18,7 @@ import { Box, createTheme } from "@mui/system";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { api } from "../App";
 
 const theme = createTheme({
   breakpoints: {
@@ -123,7 +124,7 @@ const UserMenu = () => {
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/users/me");
+        const response = await axios.get(`${api}/api/users/me`);
 
         if (response.status !== 200) {
           throw new Error(`HTTP error! Status: ${response.status}`);
