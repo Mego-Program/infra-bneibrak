@@ -1,5 +1,4 @@
 import { Avatar, Box, Card, CardContent, Grid, Typography } from '@mui/material';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import InfoIcon from '@mui/icons-material/Info';
 
 
@@ -37,12 +36,7 @@ export const AddIssue = (props) => (
           >
             Add Issue
           </Typography>
-          {/* <Typography
-            variant="h4"
-            color="primary"
-          >
-            $24k
-          </Typography> */}
+       
         </Grid>
       </Grid>
       <Box
@@ -52,22 +46,6 @@ export const AddIssue = (props) => (
           alignItems: 'center'
         }}
       >
-        {/* <ArrowDownwardIcon color="error" /> */}
-        {/* <Typography
-          color="error"
-          sx={{
-            mr: 1
-          }}
-          variant="body2"
-        >
-          12%
-        </Typography> */}
-        {/* <Typography
-        
-          variant="caption"
-        >
-          Since last month
-        </Typography> */}
       </Box>
     </CardContent>
   </Card>
