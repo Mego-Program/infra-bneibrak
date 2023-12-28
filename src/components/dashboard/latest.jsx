@@ -32,8 +32,6 @@ try {
         'Content-Type': 'application/json; charset=utf-8',
       }
     })
-  // console.log(response)
-  // console.log('user id:', response.data.result[0]._id);
   userID = response.data.result[0]._id;
 }
 catch (error) {
@@ -41,40 +39,6 @@ catch (error) {
 };
 
 const UrlDataBoard = `${apiProject}/board/user/${userID}/read`;
-
-// const orders = [
-//   {
-//     id: uuid(),
-//     ref: 'CDD1049',
-//     amount: 30.5,
-//     customer: {
-//       name: 'Ekaterina Tankova'
-//     },
-//     createdAt: 1555016400000,
-//     status: 'pending'
-//   },
-//   {
-//     id: uuid(),
-//     ref: 'CDD1048',
-//     amount: 25.1,
-//     customer: {
-//       name: 'Cao Yu'
-//     },
-//     createdAt: 1555016400000,
-//     status: 'delivered'
-//   },
-//   {
-//     id: uuid(),
-//     ref: 'CDD1047',
-//     amount: 10.99,
-//     customer: {
-//       name: 'Alexa Richardson'
-//     },
-//     createdAt: 1554930000000,
-//     status: 'refunded'
-//   },
-
-// ];
 
 export const LatestOrders = (props) => {
 
@@ -89,7 +53,7 @@ export const LatestOrders = (props) => {
   const fetchProjects = () => {
     axios.get(UrlDataBoard, { headers })
       .then(response => {
-        setProjects(response.data)
+        setProjects(response.data.slice(-3))
         // console.log("Mendy", response.data)
       })
       .catch(error => {
