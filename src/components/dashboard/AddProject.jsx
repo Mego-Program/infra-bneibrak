@@ -6,7 +6,7 @@ import AddIcon from '@mui/icons-material/Add';
 
 export const AddProject = (props) => (
   <Card
-    sx={{ height: '100%' , background: '#21213E' }}
+    sx={{ height: '100%', background: '#21213E' }}
     {...props}
   >
     <CardContent>
