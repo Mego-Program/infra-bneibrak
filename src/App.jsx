@@ -17,7 +17,7 @@ import cloudinary from 'cloudinary-core';
 import Navigating from './pages/navigation';
 import { Dashboard } from "./pages/Dashboard";
 import ProjectsApp from 'project_app/App'
-import CommunicationApp from 'Communication_app/App'
+import CommunicationApp from 'message_app/App'
 
 export const cl = new cloudinary.Cloudinary({ cloud_name: 'megobb' });
 export const api = import.meta.env.VITE_API_URL
@@ -92,11 +92,11 @@ const App = () => {
             <Route path="/" element={<Navigating />} />
             <Route path="/login" element={<SignIn />} />
             <Route path="/register" element={<SignUp />} />
-            <Route path='/currentProfile' element={<CurrentProfile />} />
+            <Route path='/currentProfile' element={<CurrentProfile kye={reload} />} />
             <Route path='/updateProfile' element={<UpdateProfile />} />
             <Route path="/dashboard" element={<Layout component={<Dashboard />} />} />
-            <Route path="/messages/*" element={<Layout component={<CommunicationApp />} />} />
-            <Route path="/Projects/*" element={<Layout component={<ProjectsApp />} />} />
+            <Route path="/messages/*" element={<Layout component={<CommunicationApp kye={reload}/>} />} />
+            <Route path="/projects/*" element={<Layout component={<ProjectsApp />} />} />
           </>
         )}
       </Routes>  
