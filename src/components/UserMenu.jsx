@@ -13,13 +13,12 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from "@mui/styles";
 import { Box, createTheme } from "@mui/system";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
-import {api} from '../App'
- 
+
 const theme = createTheme({
   breakpoints: {
     values: {
@@ -112,23 +111,38 @@ const UserMenu = () => {
     navigateTo("/");
   };
 
+  const handleImageUpload = () => {
+    console.log("ImageUploade");
+    navigateTo("/TryImageLoader");
+  };
+
   const [profileData, setProfileData] = useState({});
   const [firstLetter, setFirstLetter] = useState("U");
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const token = localStorage.getItem('authToken')
-        const response = await axios.get(`${api}/api/users/me`, {headers: token});
-        console.log('response: ', response.data.result);
+        const response = await axios.get("http://localhost:5000/api/users/me");
 
         if (response.status !== 200) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
+        console.log(response.data);
 
         const { firstName, lastName, title } = response.data.result[0];
-        setProfileData({ firstName, lastName, title });
-        setFirstLetter(firstName[0]);
+        let profilePicture = null;
+
+        // Check if profilePicture exists
+        if (response.data.result[0].profilePicture) {
+          // If it exists, set uploadedImageUrl
+          profilePicture = response.data.result[0].profilePicture;
+        }
+        setProfileData({ firstName, lastName, title, profilePicture });
+
+        if (!profilePicture) {
+          setFirstLetter(firstName[0]);
+        }
       } catch (error) {
         console.error("Error fetching profile data:", error);
         setError("Error fetching profile data. Please try again later.");
@@ -141,7 +155,17 @@ const UserMenu = () => {
   return (
     <div className={classes.root}>
       <div className={classes.userInfo}>
-        <Avatar className={classes.avatar}>{firstLetter}</Avatar>
+        <Avatar>
+          {profileData.profilePicture ? (
+            <img
+              src={profileData.profilePicture}
+              alt="Profile"
+              style={{ width: "100%", height: "100%", borderRadius: "50%" }}
+            />
+          ) : (
+            firstLetter
+          )}
+        </Avatar>{" "}
         <div style={{ marginLeft: "12px" }}>
           <div className={`user-name ${classes.userName}`}>
             {profileData.firstName + " " + profileData.lastName}
@@ -226,7 +250,7 @@ const UserMenu = () => {
               </ListItemIcon>
               Add another account
             </MenuItem>
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={handleImageUpload}>
               <ListItemIcon>
                 <SettingsIcon fontSize="small" />
               </ListItemIcon>

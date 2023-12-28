@@ -16,12 +16,12 @@ export default function ListItemSpaciel(props) {
         border: "10px",
         height: "4.989vh",
         minHeight: "30px",
-        flexBasis: "100%", // Ensure each ListItem takes up the full width
+        flexBasis: "100%",
         flexShrink: 0,
         bgcolor: `${props.bgcolor}`,
         borderRadius: "10px",
       }}
-      onClick={props.onClick} // Added onClick event handler
+      onClick={props.onClick}
     >
       <ListItemIcon sx={{ position: "sticky" }}>{props.svg}</ListItemIcon>
       <ListItemText
