@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Button, Container, CssBaseline, Grid, Typography } from '@mui/material';
+import { Button, CircularProgress, Container, CssBaseline, Grid, Typography } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 import { cl } from '../App';
+import axios from 'axios'; 
+
 
 const ImageUploader = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
+  const [uploading, setUploading] = useState(false);
 
   const onDrop = (acceptedFiles) => {
     const image = acceptedFiles[0];
@@ -17,6 +20,8 @@ const ImageUploader = () => {
 
   const handleImageUpload = async () => {
     try {
+      setUploading(true);
+
       const formData = new FormData();
       formData.append('file', selectedImage);
 
@@ -34,22 +39,26 @@ const ImageUploader = () => {
       const imageUrl = cl.url(data.public_id, { secure: true });
       setUploadedImageUrl(imageUrl);
       console.log('Image uploaded successfully:', imageUrl);
-    } catch (error) {
-      console.error('Error uploading image:', error);
-    }
-  };
+    
+  // Make a PUT request to update the server with the imageUrl
+  await axios.put('http://localhost:5000/api/users/imageUrl', { imageUrl });
+  console.log('Server updated with imageUrl:', imageUrl);
+} catch (error) {
+  console.error('Error uploading image:', error);
+} finally {
+  setUploading(false);
+}
+};
 
   return (
     <Container component="main" maxWidth="md">
       <CssBaseline />
       <Grid container spacing={2} justifyContent="center" alignItems="center" style={{ minHeight: '100vh' }}>
         <Grid item xs={12} sm={6}>
-        <Grid item xs={12} sm={6}>
           <div {...getRootProps()} style={{ textAlign: 'center' }}>
             <input {...getInputProps()} />
             <Typography variant="h6">Select Image</Typography>
           </div>
-          </Grid>
           {selectedImage && (
             <img
               src={URL.createObjectURL(selectedImage)}
@@ -63,8 +72,9 @@ const ImageUploader = () => {
               color="primary"
               onClick={handleImageUpload}
               style={{ marginTop: 20 }}
+              disabled={uploading}
             >
-              Upload Image
+              {uploading ? <CircularProgress size={24} /> : 'Upload Image'}
             </Button>
           )}
         </Grid>

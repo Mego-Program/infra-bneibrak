@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import {
-  Drawer,
-  List,
-} from "@mui/material";
-
+import { Drawer, List } from "@mui/material";
 
 import ListItemSpaciel from "./ListItemSpecial";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
@@ -13,15 +9,15 @@ import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import DvrOutlinedIcon from "@mui/icons-material/DvrOutlined";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
-  const navigateTo = useNavigate()
+  const navigateTo = useNavigate();
   const [selectedButton, setSelectedButton] = useState(null);
 
   const handleButtonClick = (button, navigate) => {
     setSelectedButton(button);
-    navigateTo(navigate)
+    navigateTo(navigate);
   };
   return (
     <Drawer
@@ -37,13 +33,10 @@ const Sidebar = () => {
           backgroundColor: "#121231",
           color: "white",
           flexGrow: "inherit",
-          
-          
         },
       }}
     >
-
-      <div style={{ flex: 1}}>
+      <div style={{ flex: 1 }}>
         <List>
           <div style={{ height: "8vh" }}> </div>
           <ListItemSpaciel
@@ -54,10 +47,9 @@ const Sidebar = () => {
                 sx={{ color: "white", width: "20px", height: "18px" }}
               ></SpeedOutlinedIcon>
             }
-            onClick={() => handleButtonClick(1 , '/dashboard')}
+            onClick={() => handleButtonClick(1, "/dashboard")}
           />
           <ListItemSpaciel
-
             text="Projects"
             bgcolor={selectedButton === 2 ? "#F6C927" : "#121231"}
             svg={
@@ -65,8 +57,7 @@ const Sidebar = () => {
                 sx={{ color: "white", width: "20px", height: "18px" }}
               ></FeedOutlinedIcon>
             }
-            
-            onClick={() => handleButtonClick(2, '/Projects')}   
+            onClick={() => handleButtonClick(2, "/Projects")}
           />
           <ListItemSpaciel
             text="Specs"

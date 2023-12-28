@@ -52,7 +52,7 @@ const App = () => {
         return response;
       },
       (error) => {
-        if (error.response && error.response.status === 401 && !['/register', '/', '/userTitle'].includes(window.location.pathname)) {
+        if (error.response && error.response.status === 401 && !['/register', '/', '/title'].includes(window.location.pathname)) {
           setTimeout(() => {
             console.log('You are not authorized');
             navigateTo('/');

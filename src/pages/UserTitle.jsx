@@ -63,7 +63,7 @@ export default function UserClassification() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/userTitle",
+        "http://localhost:5000/api/users/title",
         data
       );
    
