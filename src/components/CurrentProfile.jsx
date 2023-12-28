@@ -15,7 +15,7 @@ import {
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
 import { v4 as uuidv4 } from "uuid";
-import { cl } from "../App";
+import { cl , api} from "../App";
 
 const CurrentProfile = () => {
   const navigateTo = useNavigate();
