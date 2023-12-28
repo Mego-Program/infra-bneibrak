@@ -13,6 +13,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import axios from "axios";
+import { api } from "../App";
 
 function Copyright(props) {
   return (
@@ -52,13 +53,13 @@ export default function SignUp() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/register",
+        `${api}/api/users/register`,
         data
       );
       setSuccess(response.data.message);
       setErrors("");
       setTimeout(() => {
-        navigateTo("/");
+        navigateTo("/login");
       }, 1000);
     } catch (error) {
       if (error.response && error.response.data && error.response.data.errors) {
@@ -195,7 +196,7 @@ export default function SignUp() {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="/" variant="body2">
+              <Link href="/login" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>

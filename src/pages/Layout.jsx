@@ -3,15 +3,14 @@ import Sidebar from "../components/SideBar";
 import SearchBar from "../components/SearchBar";
 import UserMenu from "../components/UserMenu";
 import Grid from "@mui/material/Grid";
-// import ProjectsApp from 'project_app/App'
 import {useLocation} from 'react-router-dom';
-import { Dashboard } from "./Dashboard";
 
-export default function Layout() {
+
+export default function Layout({component}) {
 
   const location = useLocation();
-  const [reload, setReload] = useState(0);
   const [firstReload, setFirstReload] = useState(0);
+  const [reload, setReload] = useState(0)
   useEffect(() => {
     setReload(prev => prev+1); 
     if(firstReload == 0) setFirstReload(1)
@@ -25,7 +24,7 @@ export default function Layout() {
           <Grid container style={{ height: "6%", margin: 0, padding: 0  }}>
             {/* Left Column */}
             <Grid item xs={2.5}>
-              <Sidebar />
+              <Sidebar key={firstReload}  />
             </Grid>
 
             {/* Second Left Column (remaining space, disappears on smaller screens) */}
@@ -38,7 +37,7 @@ export default function Layout() {
 
             {/* Right Column */}
             <Grid item xs={3.5}>
-              <UserMenu  key={firstReload}/>
+              <UserMenu key={firstReload} />
             </Grid>
           </Grid>
         </Grid>
@@ -50,11 +49,7 @@ export default function Layout() {
             {/* You can further divide this row into columns as needed */}
             <Grid item xs={3}></Grid> 
             <Grid item xs={9} style={{ marginLeft: "-5%" }}>
-            {/* {window.location.pathname == '/dashboard'? ( <Dashboard  /> ):(
-            <ProjectsApp key={reload} />)
-            } */}
-              <Dashboard />
-             
+              {component} 
             </Grid>
             <Grid item xs={2}></Grid> {/* Adjust the column size as needed */}
           </Grid>

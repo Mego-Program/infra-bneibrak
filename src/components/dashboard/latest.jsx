@@ -52,19 +52,19 @@ const orders = [
 ];
 
 export const LatestOrders = (props) => (
-  <Card  sx={{  background: '#21213E' ,color: "#F6C927"
+  <Card  sx={{ width:'100%', background: '#21213E' ,color: "#F6C927"
 }} {...props}>
-    <CardHeader title="Latest Orders" />
+    <CardHeader title="Latest Projects" />
     <PerfectScrollbar>
       <Box sx={{ minWidth: 800 }}>
         <Table >
           <TableHead>
             <TableRow>
               <TableCell>
-                Order Ref
+                Projects
               </TableCell>
               <TableCell>
-                Customer
+                User
               </TableCell>
               <TableCell sortDirection="desc">
                 <Tooltip
@@ -74,6 +74,7 @@ export const LatestOrders = (props) => (
                   <TableSortLabel
                     active
                     direction="desc"
+                   
                   >
                     Date
                   </TableSortLabel>

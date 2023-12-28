@@ -87,7 +87,7 @@ const Sidebar = () => {
                 sx={{ color: "white", width: "20px", height: "18px" }}
               ></MessageOutlinedIcon>
             }
-            onClick={() => handleButtonClick(5)}
+            onClick={() => handleButtonClick(5, '/messages')}
           />
         </List>
       </div>

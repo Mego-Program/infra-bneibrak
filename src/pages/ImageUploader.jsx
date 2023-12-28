@@ -4,6 +4,7 @@ import { Button, CircularProgress, Container, CssBaseline, Grid, Typography } fr
 import { v4 as uuidv4 } from 'uuid';
 import { cl } from '../App';
 import axios from 'axios'; 
+import { api } from "../App";
 
 
 const ImageUploader = () => {
@@ -41,7 +42,7 @@ const ImageUploader = () => {
       console.log('Image uploaded successfully:', imageUrl);
     
   // Make a PUT request to update the server with the imageUrl
-  await axios.put('http://localhost:5000/api/users/imageUrl', { imageUrl });
+  await axios.put(`${api}/api/users/imageUrl`, { imageUrl });
   console.log('Server updated with imageUrl:', imageUrl);
 } catch (error) {
   console.error('Error uploading image:', error);

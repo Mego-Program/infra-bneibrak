@@ -7,9 +7,9 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { createTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import { api } from "../App";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -30,14 +30,6 @@ const allowedTitles = [
   "Other",
 ];
 
-// const theme = createTheme({
-//   palette: {
-//     primary: {
-//       main: "#F6C927",
-//     },
-//     background: { default: "#0A0A1B" },
-//   },
-// });
 
 export default function UserClassification() {
   const [personTitle, setPersonTitle] = useState("");
@@ -63,7 +55,7 @@ export default function UserClassification() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/title",
+        `${api}/api/users/title`,
         data
       );
    

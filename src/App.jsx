@@ -14,11 +14,20 @@ import ImageUploader from './pages/ImageUploader';
 import CurrentProfile from './components/CurrentProfile';
 import {useLocation} from 'react-router-dom';
 import cloudinary from 'cloudinary-core';
-
+import Navigating from './pages/navigation';
+import { Dashboard } from "./pages/Dashboard";
+import ProjectsApp from 'project_app/App'
+import CommunicationApp from 'message_app/App1'
 
 export const cl = new cloudinary.Cloudinary({ cloud_name: 'megobb' });
+export const api = import.meta.env.VITE_API_URL
+console.log(api)
+
 
 const App = () => {
+  
+
+  console.log('start....')
   
   
   const navigateTo = useNavigate();
@@ -26,13 +35,16 @@ const App = () => {
   const [reload, setReload] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  const authAndNavigate = async () => {
+    const response = await checkToken();
+    if (response === 200 && (window.location.pathname === '/login' || window.location.pathname === '/register')) navigateTo('/dashboard');
+    setIsLoaded(true);
+  };
+
   useEffect(() => {
     setReload(prev => prev+1); 
-    const fetchData = async () => {
-      const response = await checkToken();
-      if (response === 200 && (window.location.pathname === '/' || window.location.pathname === '/register')) navigateTo('/dashboard');
-      setIsLoaded(true);
-    };
+    
+     authAndNavigate();
 
     const axiosInterceptorRequest = axios.interceptors.request.use(
       (config) => {
@@ -52,7 +64,7 @@ const App = () => {
         return response;
       },
       (error) => {
-        if (error.response && error.response.status === 401 && !['/register', '/', '/title'].includes(window.location.pathname)) {
+        if (error.response && error.response.status === 401 && !['/register', '/', '/userTitle', '/login'].includes(window.location.pathname)) {
           setTimeout(() => {
             console.log('You are not authorized');
             navigateTo('/');
@@ -62,14 +74,11 @@ const App = () => {
       }
     );
 
-    fetchData();
-
     return () => {
       axios.interceptors.request.eject(axiosInterceptorRequest);
       axios.interceptors.response.eject(axiosInterceptorResponse);
     };
   }, [navigateTo, location]);
-
 
   return (
     <ThemeProvider theme={theme}>
@@ -80,12 +89,14 @@ const App = () => {
           <>
             <Route path="/imageLoader" element={<ImageUploader />} />
             <Route path="/userTitle" element={<UserTitle />} />
-            <Route path="/dashboard" element={<Layout />} />
-            <Route path="/" element={<SignIn />} />
+            <Route path="/" element={<Navigating />} />
+            <Route path="/login" element={<SignIn />} />
             <Route path="/register" element={<SignUp />} />
-            <Route path='/currentProfile' element={<CurrentProfile key={reload}/>} />
+            <Route path='/currentProfile' element={<CurrentProfile kye={reload} />} />
             <Route path='/updateProfile' element={<UpdateProfile />} />
-            {/* <Route path="/Projects/*" element={<Layout /> } /> */}
+            <Route path="/dashboard" element={<Layout component={<Dashboard />} />} />
+            <Route path="/messages/*" element={<Layout component={<CommunicationApp kye={reload}/>} />} />
+            <Route path="/projects/*" element={<Layout component={<ProjectsApp />} />} />
           </>
         )}
       </Routes>  

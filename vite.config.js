@@ -7,6 +7,7 @@ export default defineConfig(({ command, mode }) => {
  
   const env = loadEnv(mode, process.cwd(), '')
   console.log(env.PROJECTS_URL);
+  console.log(env.COMMUNICATION_URL);
 
   return {
     plugins: [
@@ -15,6 +16,7 @@ export default defineConfig(({ command, mode }) => {
         name: 'infra-app',
         remotes: {
             project_app: env.PROJECTS_URL,
+            message_app: env.COMMUNICATION_URL,
         },
         shared: ['react', 'react-dom']
       
