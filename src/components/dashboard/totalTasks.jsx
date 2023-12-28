@@ -1,9 +1,10 @@
 import { Avatar, Box, Card, CardContent, Grid, Typography } from '@mui/material';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import BorderColorIcon from '@mui/icons-material/BorderColor';
+import InfoIcon from '@mui/icons-material/Info';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { token, apiProject, headers} from './try';
+
 
 
 let userID = ''
@@ -24,7 +25,7 @@ catch (error) {
 
 const UrlDataBoard = `${apiProject}/board/user/${userID}/read`;
 
-export const Ongoing = (props) => {
+export const TotalTasks = (props) => {
 
 
   useEffect(() => {
@@ -42,6 +43,8 @@ export const Ongoing = (props) => {
   const fetchProjects = () => {
     axios.get(UrlDataBoard, { headers })
       .then(response => {
+        // const dataLength = response.data.length;
+        // setTotalIssue(dataLength);
   
         let statusCount = {
           'totalTasks':0,
@@ -62,6 +65,7 @@ export const Ongoing = (props) => {
             statusCount[task.status.name]++;
           });
         });
+  
 
         steCountTasks(statusCount)
       })
@@ -69,77 +73,79 @@ export const Ongoing = (props) => {
         console.error('Error fetching JSON file:', error);
       });
   };
+  return (
+    <Card
+      sx={{ height: '100%', background: '#21213E' }}
+      {...props}
+    >
+      <CardContent>
+        <Grid
+          container
+          spacing={3}
+          sx={{ justifyContent: 'space-between' }}
+        >
+          <Grid item>
+            <Avatar
+              sx={{
+                bgcolor: "#F6C927",
+                height: 50,
+                width: 50
+              }}
+            >
+              <InfoIcon />
+            </Avatar>
+          </Grid>
+          <Grid item>
+            <Typography
 
-  console.log(countTasks)
+              gutterBottom
+              variant="overline"
+              sx={{
+                fontSize: 10,
 
-
-  return(
-  <Card
-    sx={{ height: '100%', background: '#21213E' }}
-    {...props}
-  >
-    <CardContent>
-      <Grid
-        container
-        spacing={3}
-        sx={{ justifyContent: 'space-between' }}
-      >
-       <Grid item>
-          <Avatar
-            sx={{
-            bgcolor: "#F6C927" ,
-            height: 50,
-              width: 50
-            }}
-          >
-            <BorderColorIcon />
-          </Avatar>
-        </Grid>
-        <Grid item>
-          <Typography
-           
-            gutterBottom
-            variant="overline"
-            sx={{
-            fontSize:10,
-            
-            }}
-          >
-            Ongoing
-          </Typography>
-          <Typography
+              }}
+            >
+              Total Iasks
+            </Typography>
+            <Typography
+              variant="h4"
+            >
+              {/* <br /> */}
+              {countTasks.totalTasks}
+            </Typography>
+            {/* <Typography
             variant="h4"
+            color="primary"
           >
-            {countTasks['In Progress']}
-          </Typography>
+            $24k
+          </Typography> */}
+          </Grid>
         </Grid>
-       
-      </Grid>
-      <Box
-        sx={{
-          pt: 2,
-          display: 'flex',
-          alignItems: 'center'
-        }}
-      >
-      
-        {/* <ArrowDownwardIcon color="error" /> */}
-        <Typography
+        <Box
+          sx={{
+            pt: 2,
+            display: 'flex',
+            alignItems: 'center'
+          }}
+        >
+          {/* <ArrowDownwardIcon color="error" /> */}
+          {/* <Typography
           color="error"
           sx={{
             mr: 1
           }}
           variant="body2"
         >
-          
-        </Typography>
-        <Typography
+          12%
+        </Typography> */}
+          {/* <Typography
         
           variant="caption"
         >
-          
-        </Typography>
-      </Box>
-    </CardContent>
-  </Card>
-)};
+          Since last month
+        </Typography> */}
+        </Box>
+      </CardContent>
+    </Card>
+  )
+};

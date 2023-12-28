@@ -3,49 +3,59 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import SourceIcon from '@mui/icons-material/Source';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { token, apiProject, headers} from './try';
+import { token, apiProject, headers } from './try';
 
 
 let userID = ''
 
 try {
   const response = await axios.get(`${apiProject}/users/self`,
-  {
+    {
       headers: {
-          'Authorization': token,
-          'Content-Type': 'application/json; charset=utf-8',
+        'Authorization': token,
+        'Content-Type': 'application/json; charset=utf-8',
       }
-  })
-      // console.log(response)
-      // console.log('user id:', response.data.result[0]._id);
-      userID = response.data.result[0]._id;}
-  catch(error) {
-      console.error('error: ', error);
-  };
+    })
+
+  userID = response.data.result[0]._id;
+}
+catch (error) {
+  console.error('error: ', error);
+};
 
 const UrlDataBoard = `${apiProject}/board/user/${userID}/read`;
 
-export const TotalProjects =  (props) => {
+export const TotalIsuse = (props) => {
 
-  const [totalProjects, setTotalProjects] = useState(null);
+  const [totalIsuse, setTotalIsuse] = useState({
+    'totalTasks': 0,
+  });
 
   useEffect(() => {
     fetchProjects();
-}, [])
+  }, [])
 
-const fetchProjects = () => {
+  const fetchProjects = () => {
     axios.get(UrlDataBoard, { headers })
-        .then(response => {
-          const dataLength = response.data.length;
-          setTotalProjects(dataLength)
-          
-            // console.log("Mendy", dataLength)
+      .then(response => {
 
-        })
-        .catch(error => {
-            console.error('Error fetching JSON file:', error);
-        })
-}
+        const projects = response.data;
+
+        let statusCount = {
+          'totalTasks': 0,
+        };
+        projects.forEach(project => {
+          const tasks = project.tasks;
+          const taskslength = project.tasks.length
+          statusCount['totalTasks'] += taskslength;
+
+        });
+        setTotalIsuse(statusCount)
+      })
+      .catch(error => {
+        console.error('Error fetching JSON file:', error);
+      })
+  }
 
 
   return (
@@ -80,13 +90,13 @@ const fetchProjects = () => {
               }}
 
             >
-              Total Projects
+              Total Isuse
             </Typography>
             <Typography
               variant="h4"
             >
               {/* <br /> */}
-              {totalProjects}
+              {totalIsuse.totalTasks}
             </Typography>
           </Grid>
         </Grid>

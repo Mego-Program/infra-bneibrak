@@ -1,10 +1,12 @@
-import { Avatar, Box, Card, CardContent, Grid, Typography } from '@mui/material';
+import { Avatar, Box, Button, Card, CardContent, Grid, Typography } from '@mui/material';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import TextSnippetIcon from '@mui/icons-material/TextSnippet';
+import AddIcon from '@mui/icons-material/Add';
+
 
 export const AddProject = (props) => (
   <Card
-    sx={{ height: '100%' , background: '#21213E' }}
+    sx={{ height: '100%', background: '#21213E' }}
     {...props}
   >
     <CardContent>
@@ -35,13 +37,19 @@ export const AddProject = (props) => (
             }}
           >
             Add Project
+            <br/>
+            {/* <br/> */}
+            {/* <h1>+</h1> */}
+            {/* <Button sx={{ color: "#F6C927" }}>
+                    <AddIcon />
+                </Button> */}
           </Typography>
-          {/* <Typography
+          <Typography
             variant="h4"
             color="primary"
           >
-            $24k
-          </Typography> */}
+            +
+          </Typography>
         </Grid>
       </Grid>
       <Box
