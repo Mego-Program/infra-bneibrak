@@ -55,7 +55,7 @@ const CurrentProfile = () => {
       };
 
       // Make a PUT request to update the server with the imageUrl using axios
-      await axios.put("http://localhost:5000/api/users/profileUpdate", image);
+      await axios.put(`${api}/api/users/profileUpdate`, image);
       console.log("Server updated with imageUrl:", image);
       setUploadedImageUrl(imageUrl);
       setFileInputVisible(false); // Hide the file input after uploading
@@ -71,7 +71,7 @@ const CurrentProfile = () => {
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/users/me");
+        const response = await axios.get(`${api}/api/users/me`);
 
         if (response.status !== 200) {
           throw new Error(`HTTP error! Status: ${response.status}`);
