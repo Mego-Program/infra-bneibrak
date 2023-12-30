@@ -67,7 +67,7 @@ const UpdateProfile = () => {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const { firstName, lastName, email, title } = response.data.result;
+        const { firstName, lastName, email, title } = response.data.result[0];
 
         // Set the form fields with the existing user data
         setFirstName(firstName);
