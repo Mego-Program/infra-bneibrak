@@ -16,8 +16,6 @@ try {
           'Content-Type': 'application/json; charset=utf-8',
       }
   })
-      // console.log(response)
-      // console.log('user id:', response.data.result[0]._id);
       userID = response.data.result[0]._id;}
   catch(error) {
       console.error('error: ', error);
@@ -38,9 +36,6 @@ const fetchProjects = () => {
         .then(response => {
           const dataLength = response.data.length;
           setTotalProjects(dataLength)
-          
-            // console.log("Mendy", dataLength)
-
         })
         .catch(error => {
             console.error('Error fetching JSON file:', error);
@@ -97,7 +92,6 @@ const fetchProjects = () => {
             alignItems: 'center'
           }}
         >
-          {/* <ArrowDownwardIcon color="error" /> */}
           <Typography
             color="error"
             sx={{

@@ -75,9 +75,6 @@ export const LatestOrders = (props) => {
                 <TableCell>
                   Projects
                 </TableCell>
-                {/* <TableCell>
-                User
-              </TableCell> */}
                 <TableCell sortDirection="desc">
                   <Tooltip
                     enterDelay={300}
@@ -89,7 +86,7 @@ export const LatestOrders = (props) => {
                   </Tooltip>
                 </TableCell>
                 <TableCell>
-                  Status
+                  {/* Status */}
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -102,9 +99,6 @@ export const LatestOrders = (props) => {
                   <TableCell>
                     {project.name}
                   </TableCell>
-                  {/* <TableCell>
-                  {project.name}
-                </TableCell> */}
                   <TableCell>
                     {project.creationDate}
                   </TableCell>

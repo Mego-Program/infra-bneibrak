@@ -38,11 +38,6 @@ export const AddProject = (props) => (
           >
             Add Project
             <br/>
-            {/* <br/> */}
-            {/* <h1>+</h1> */}
-            {/* <Button sx={{ color: "#F6C927" }}>
-                    <AddIcon />
-                </Button> */}
           </Typography>
           <Typography
             variant="h4"
@@ -59,22 +54,7 @@ export const AddProject = (props) => (
           alignItems: 'center'
         }}
       >
-        <ArrowDownwardIcon color="error" />
-        {/* <Typography
-          color="error"
-          sx={{
-            mr: 1
-          }}
-          variant="body2"
-        >
-          12%
-        </Typography>
-        <Typography
-        
-          variant="caption"
-        >
-          Since last month
-        </Typography> */}
+        {/* <ArrowDownwardIcon color="error" /> */}
       </Box>
     </CardContent>
   </Card>

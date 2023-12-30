@@ -1,5 +1,4 @@
 import { Avatar, Box, Card, CardContent, Grid, Typography } from '@mui/material';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import InfoIcon from '@mui/icons-material/Info';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -43,8 +42,6 @@ export const TotalTasks = (props) => {
   const fetchProjects = () => {
     axios.get(UrlDataBoard, { headers })
       .then(response => {
-        // const dataLength = response.data.length;
-        // setTotalIssue(dataLength);
   
         let statusCount = {
           'totalTasks':0,
@@ -105,20 +102,13 @@ export const TotalTasks = (props) => {
 
               }}
             >
-              Total Iasks
+              Total Tasks
             </Typography>
             <Typography
               variant="h4"
             >
-              {/* <br /> */}
               {countTasks.totalTasks}
             </Typography>
-            {/* <Typography
-            variant="h4"
-            color="primary"
-          >
-            $24k
-          </Typography> */}
           </Grid>
         </Grid>
         <Box
@@ -128,22 +118,6 @@ export const TotalTasks = (props) => {
             alignItems: 'center'
           }}
         >
-          {/* <ArrowDownwardIcon color="error" /> */}
-          {/* <Typography
-          color="error"
-          sx={{
-            mr: 1
-          }}
-          variant="body2"
-        >
-          12%
-        </Typography> */}
-          {/* <Typography
-        
-          variant="caption"
-        >
-          Since last month
-        </Typography> */}
         </Box>
       </CardContent>
     </Card>
