@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import CircularColor from "./CircularProgress";
 import {
   Typography,
   Button,
@@ -25,6 +26,7 @@ const CurrentProfile = () => {
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [isFileInputVisible, setFileInputVisible] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(true);
 
   const imageUrl = uploadedImageUrl || ""; // Use an empty string if uploadedImageUrl is null
 
@@ -71,6 +73,7 @@ const CurrentProfile = () => {
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
+        setIsLoaded(true)
         const response = await axios.get(`${api}/api/users/me`);
 
         if (response.status !== 200) {
@@ -90,11 +93,17 @@ const CurrentProfile = () => {
       } catch (error) {
         console.error("Error fetching profile data:", error);
         setError("Error fetching profile data. Please try again later.");
+      } finally {
+        setIsLoaded(false)
       }
     };
 
     fetchProfileData();
   }, []);
+
+  if(isLoaded) return (
+    <CircularColor />
+  )
 
   const handleUpdateProfile = () => {
     navigateTo("/updateProfile");
@@ -107,7 +116,7 @@ const CurrentProfile = () => {
         : "U";
     return firstInitial.toUpperCase();
   };
-
+  
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
