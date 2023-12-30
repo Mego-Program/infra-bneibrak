@@ -116,7 +116,7 @@ const CurrentProfile = () => {
         : "U";
     return firstInitial.toUpperCase();
   };
-  
+  if(!isLoaded){
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -197,6 +197,7 @@ const CurrentProfile = () => {
       </Box>
     </Container>
   );
+  }
 };
 
 export default CurrentProfile;
