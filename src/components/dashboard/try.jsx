@@ -1,5 +1,5 @@
 const token = localStorage.getItem("authToken");
-const apiProject = import.meta.env.VITE_API_PROJECTS;
+const apiProject = import.meta.env.VITE_SERVER_URL;
 const { headers } = [
   {
     'Authorization': 'Happy',

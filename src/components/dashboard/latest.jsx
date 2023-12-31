@@ -100,7 +100,7 @@ export const LatestOrders = (props) => {
                     {project.name}
                   </TableCell>
                   <TableCell>
-                    {project.creationDate}
+                  {new Date(project.creationDate).toLocaleString()}
                   </TableCell>
                   <TableCell>
                   </TableCell>
