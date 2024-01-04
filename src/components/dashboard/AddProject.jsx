@@ -1,7 +1,6 @@
-import { Avatar, Box, Button, Card, CardContent, Grid, Typography } from '@mui/material';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import { Avatar, Box, Card, CardContent, Grid, Typography } from '@mui/material';
 import TextSnippetIcon from '@mui/icons-material/TextSnippet';
-import AddIcon from '@mui/icons-material/Add';
+
 
 
 export const AddProject = (props) => (
@@ -54,7 +53,6 @@ export const AddProject = (props) => (
           alignItems: 'center'
         }}
       >
-        {/* <ArrowDownwardIcon color="error" /> */}
       </Box>
     </CardContent>
   </Card>

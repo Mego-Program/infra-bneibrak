@@ -3,26 +3,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { token, apiProject, headers} from './try';
-
-
-let userID = ''
-try {
-  const response = await axios.get(`${apiProject}/users/self`,
-    {
-      headers: {
-        'Authorization': token,
-        'Content-Type': 'application/json; charset=utf-8',
-      }
-    })
-
-  userID = response.data.result[0]._id;
-}
-catch (error) {
-  console.error('error: ', error);
-};
-
-const UrlDataBoard = `${apiProject}/board/user/${userID}/read`;
+import { headers, UrlDataBoard} from './UserData';
 
 export const Ongoing = (props) => {
 

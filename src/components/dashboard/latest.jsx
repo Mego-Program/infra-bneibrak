@@ -14,31 +14,10 @@ import {
   TableSortLabel,
   Tooltip
 } from '@mui/material';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 // import { SeverityPill } from '../severity-pill';
-import { token, apiProject, headers} from './try';
-
-
-let userID = ''
-
-
-try {
-  const response = await axios.get(`${apiProject}/users/self`,
-    {
-      headers: {
-        'Authorization': token,
-        'Content-Type': 'application/json; charset=utf-8',
-      }
-    })
-  userID = response.data.result[0]._id;
-}
-catch (error) {
-  console.error('error: ', error);
-};
-
-const UrlDataBoard = `${apiProject}/board/user/${userID}/read`;
+import { headers, UrlDataBoard} from './UserData';
 
 export const LatestOrders = (props) => {
 
