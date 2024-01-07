@@ -7,7 +7,7 @@ import { headers, UrlDataBoard} from './UserData';
 export const TotalIsuse = (props) => {
 
   const [totalIsuse, setTotalIsuse] = useState({
-    'totalTasks': 0,
+    "Open": 0,
   });
 
   useEffect(() => {
@@ -18,23 +18,33 @@ export const TotalIsuse = (props) => {
     axios.get(UrlDataBoard, { headers })
       .then(response => {
 
-        const projects = response.data;
-
         let statusCount = {
-          'totalTasks': 0,
+          'totalTasks':0,
+          "Open": 0,
+          "Closed": 0,
+          "In Progress": 0,
+          "Resolved": 0
         };
+
+        const projects = response.data;
+  
         projects.forEach(project => {
           const tasks = project.tasks;
-          const taskslength = project.tasks.length
-          statusCount['totalTasks'] += taskslength;
-
+          // const taskslength = project.tasks.length
+          // statusCount['totalTasks'] += taskslength;
+  
+          tasks.forEach(task => {
+            statusCount[task.status.name]++;
+          });
         });
+  
+
         setTotalIsuse(statusCount)
       })
       .catch(error => {
         console.error('Error fetching JSON file:', error);
-      })
-  }
+      });
+  };
 
 
   return (
@@ -75,7 +85,7 @@ export const TotalIsuse = (props) => {
               variant="h4"
             >
               {/* <br /> */}
-              {totalIsuse.totalTasks}
+              {totalIsuse.Open}
             </Typography>
           </Grid>
         </Grid>
