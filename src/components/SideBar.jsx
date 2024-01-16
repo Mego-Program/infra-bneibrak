@@ -67,7 +67,7 @@ const Sidebar = () => {
                 sx={{ color: "white", width: "20px", height: "18px" }}
               />
             }
-            onClick={() => handleButtonClick(3)}
+            onClick={() => handleButtonClick(3,'/spec/')}
           />
           <ListItemSpaciel
             text="Add User"

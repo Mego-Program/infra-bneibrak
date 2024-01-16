@@ -17,6 +17,7 @@ export default defineConfig(({ command, mode }) => {
         remotes: {
             project_app: env.PROJECTS_URL,
             message_app: env.COMMUNICATION_URL,
+            spec_app: env.SPEC_URL,
         },
         shared: ['react', 'react-dom']
       
