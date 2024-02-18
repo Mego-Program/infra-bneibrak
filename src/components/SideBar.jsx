@@ -45,7 +45,7 @@ const Sidebar = () => {
       }}
     >
       <div style={{ flex: 1 }}>
-        <List>
+          <List>
           <div style={{ height: "8vh" }}> </div>
           {menuItems.map((item) => (
             <CustomListItem

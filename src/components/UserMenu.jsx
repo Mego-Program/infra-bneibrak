@@ -100,7 +100,6 @@ const UserMenu = () => {
 
   const [profileData, setProfileData] = useState({});
   const [firstLetter, setFirstLetter] = useState("U");
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -127,7 +126,6 @@ const UserMenu = () => {
         }
       } catch (error) {
         console.error("Error fetching profile data:", error);
-        setError("Error fetching profile data. Please try again later.");
       }
     };
 
