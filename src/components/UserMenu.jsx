@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -14,23 +14,9 @@ import {
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { makeStyles } from "@mui/styles";
-import { Box, createTheme } from "@mui/system";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import SettingsIcon from "@mui/icons-material/Settings";
+import { Box } from "@mui/system";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { api } from "../App";
-
-const theme = createTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 600,
-      md: 960,
-      lg: 1280,
-      xl: 1920,
-    },
-  },
-});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -110,11 +96,6 @@ const UserMenu = () => {
     console.log("logout");
     localStorage.removeItem("authToken");
     navigateTo("/");
-  };
-
-  const handleImageUpload = () => {
-    console.log("ImageUploade");
-    navigateTo("/TryImageLoader");
   };
 
   const [profileData, setProfileData] = useState({});
@@ -241,22 +222,7 @@ const UserMenu = () => {
             <MenuItem onClick={handleMoreIconClick}>
               <Avatar /> Profile
             </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <Avatar /> My account
-            </MenuItem>
             <Divider />
-            <MenuItem onClick={handleClose}>
-              <ListItemIcon>
-                <PersonAddIcon fontSize="small" />
-              </ListItemIcon>
-              Add another account
-            </MenuItem>
-            <MenuItem onClick={handleImageUpload}>
-              <ListItemIcon>
-                <SettingsIcon fontSize="small" />
-              </ListItemIcon>
-              Settings
-            </MenuItem>
             <MenuItem onClick={handleLogOut}>
               <ListItemIcon>
                 <LogoutIcon fontSize="small" />
