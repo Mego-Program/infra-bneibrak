@@ -14,8 +14,7 @@ const ImageUploader = () => {
 
   const onDrop = (acceptedFiles) => {
     const image = acceptedFiles[0];
-    setSelectedImage(image);
-  };
+    setSelectedImage(image);  };
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 

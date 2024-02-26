@@ -114,9 +114,7 @@ const UserMenu = () => {
         const { firstName, lastName, title } = response.data.result[0];
         let profilePicture = null;
 
-        // Check if profilePicture exists
         if (response.data.result[0].profilePicture) {
-          // If it exists, set uploadedImageUrl
           profilePicture = response.data.result[0].profilePicture;
         }
         setProfileData({ firstName, lastName, title, profilePicture });

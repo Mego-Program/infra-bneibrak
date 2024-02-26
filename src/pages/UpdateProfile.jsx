@@ -36,8 +36,6 @@ const UpdateProfile = () => {
 
   const location = useLocation();
   
-
-  // State variables for form fields
   const [reload, setReload] = useState(0);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -69,14 +67,12 @@ const UpdateProfile = () => {
 
         const { firstName, lastName, email, title } = response.data.result[0];
 
-        // Set the form fields with the existing user data
         setFirstName(firstName);
         setLastName(lastName);
         setEmail(email);
         setTitle(title);
       } catch (error) {
         console.error("Error fetching user data:", error);
-        // Handle the error appropriately, e.g., display an error message
       }
     };
     fetchUserData();
@@ -84,16 +80,12 @@ const UpdateProfile = () => {
 
   const handleSoftDelete = async () => {
     try {
-      // Send a delete request to soft delete the user profile
       await axios.put(`${api}/api/users/deleteProfile`);
-      // Set isDeleted to true to prevent further data fetching
       localStorage.removeItem("authToken");
       navigateTo("/");
-      // Optional: You may want to redirect or show a confirmation message
       console.log("User profile soft deleted");
     } catch (error) {
       console.error("Error soft deleting user profile:", error);
-      // Handle the error appropriately, e.g., display an error message
     }
   };
 
@@ -101,28 +93,24 @@ const UpdateProfile = () => {
     event.preventDefault();
 
     try {
-      // Validate email format
       if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email)) {
         setErrors("Invalid email format");
         setSuccess("");
         return;
       }
 
-      // Validate password length
       if (password.length < 8 && password !== "") {
         setErrors("Password must be at least 8 characters long");
         setSuccess("");
         return;
       }
 
-      // Check if the passwords match
       if (password !== confirmPassword) {
         setErrors("The passwords don't match");
         setSuccess("");
         return;
       }
 
-      // Prepare the data to be sent in the put request
       const data = {
         ...(firstName && { firstName }),
         ...(lastName && { lastName }),
@@ -131,7 +119,6 @@ const UpdateProfile = () => {
         ...(isPasswordModified && password !== "" && { password }),
       };
 
-      // Send a put request to update the user profile
       const responsePut = await axios.put(
         `${api}/api/users/profileUpdate`,
         data
@@ -139,18 +126,14 @@ const UpdateProfile = () => {
       setSuccess(responsePut.data.message);
       console.log(responsePut);
 
-      // Navigate based on changes
       if (isPasswordModified || email !== "") {
-        // Redirect to the sign-in page if email or password has changed
         navigateTo("/");
       } else {
-        // Otherwise, continue to the home page
         navigateTo("/dashboard");
       }
     } catch (error) {
       console.error("Error updating user profile:", error);
       console.log("Server response data:", error.response.data);
-      // Handle the error appropriately, e.g., display an error message
     }
   };
 
@@ -335,9 +318,8 @@ const UpdateProfile = () => {
         type="button"
         fullWidth
         variant="contained"
-        sx={{ mt: 3, mb: 2, backgroundColor: "#ff0f0f" }} // Red background for delete button
+        sx={{ mt: 3, mb: 2, backgroundColor: "#ff0f0f" }}
         onClick={handleClickOpen}
-        /* onClick={handleSoftDelete} */
       >
         Delete Me
       </Button>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import CircularColor from "./CircularProgress";
 import {
   Typography,
   Button,
@@ -17,6 +16,7 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
 import { v4 as uuidv4 } from "uuid";
 import { cl , api} from "../App";
+import CircularColor from "./CircularProgress";
 
 const CurrentProfile = () => {
   const navigateTo = useNavigate();
@@ -27,8 +27,6 @@ const CurrentProfile = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isFileInputVisible, setFileInputVisible] = useState(false);
   const [isLoaded, setIsLoaded] = useState(true);
-
-  const imageUrl = uploadedImageUrl || ""; // Use an empty string if uploadedImageUrl is null
 
   const handleFileUpload = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -48,7 +46,6 @@ const CurrentProfile = () => {
       );
 
       const cloudinaryData = await cloudinaryResponse.json();
-      console.log(cloudinaryData);
 
       const imageUrl = cl.url(cloudinaryData.public_id, { secure: true });
 
@@ -56,19 +53,19 @@ const CurrentProfile = () => {
         profilePicture: imageUrl,
       };
 
-      // Make a PUT request to update the server with the imageUrl using axios
       await axios.put(`${api}/api/users/profileUpdate`, image);
       console.log("Server updated with imageUrl:", image);
       setUploadedImageUrl(imageUrl);
-      setFileInputVisible(false); // Hide the file input after uploading
+      setFileInputVisible(false); 
     } catch (error) {
       console.error("Error uploading image:", error);
     }
   };
 
   const handleAddPhotoClick = () => {
-    setFileInputVisible(true); // Show the file input when AddPhoto is clicked
+    setFileInputVisible((prevVisible) => !prevVisible);
   };
+  
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -82,9 +79,7 @@ const CurrentProfile = () => {
         const { firstName, lastName, email, title } = response.data.result[0];
         let profilePicture = null;
 
-        // Check if profilePicture exists
         if (response.data.result[0].profilePicture) {
-          // If it exists, set uploadedImageUrl
           profilePicture = response.data.result[0].profilePicture;
           setUploadedImageUrl(profilePicture);
         }
@@ -116,6 +111,7 @@ const CurrentProfile = () => {
         : "U";
     return firstInitial.toUpperCase();
   };
+  
   if(!isLoaded){
   return (
     <Container component="main" maxWidth="xs">
@@ -123,6 +119,7 @@ const CurrentProfile = () => {
       <Box
         sx={{
           marginTop: 8,
+          gap: '20px',
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -141,13 +138,13 @@ const CurrentProfile = () => {
           <Avatar
             alt={profileData.firstName ? profileData.firstName[0] : "U"}
             style={{
-              width: 120,
-              height: 120,
+              width: 150,
+              height: 150,
               mb: 2,
               border: "4px solid #F6C927",
               fontSize: "4rem",
-              overflow: "hidden", // Added line
-              position: "relative", // Added line
+              overflow: "hidden",
+              position: "relative", 
             }}
           >
             {profileData.profilePicture ? (
@@ -174,19 +171,20 @@ const CurrentProfile = () => {
             </Button>
           </>
         )}
-        <Typography variant="h4">My Profile</Typography>
-        <Typography variant="body1">
+        <Typography variant="h2">My Profile</Typography>
+        <Typography fontSize='24px'>
           First Name: {profileData.firstName}
         </Typography>
-        <Typography variant="body1">
+        <Typography fontSize='24px'>
           Last Name: {profileData.lastName}
         </Typography>
-        <Typography variant="body1">Email: {profileData.email}</Typography>
-        <Typography variant="body1">Title: {profileData.title}</Typography>
+        <Typography fontSize='24px'>Email: {profileData.email}</Typography>
+        <Typography fontSize='24px'>Title: {profileData.title}</Typography>
         <Button
           variant="contained"
           color="primary"
           onClick={handleUpdateProfile}
+          size="large"
           sx={{ mt: 3, mb: 2 }}
         >
           <ListItemIcon>
