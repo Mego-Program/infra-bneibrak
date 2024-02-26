@@ -1,7 +1,5 @@
-import React, { useState } from "react";
 import { Drawer, List } from "@mui/material";
-
-import ListItemSpaciel from "./ListItemSpecial";
+import CustomListItem from "./CustomListItem";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 import SpeedOutlinedIcon from "@mui/icons-material/SpeedOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
@@ -10,6 +8,7 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import DvrOutlinedIcon from "@mui/icons-material/DvrOutlined";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Sidebar = () => {
   const navigateTo = useNavigate();
@@ -19,6 +18,15 @@ const Sidebar = () => {
     setSelectedButton(button);
     navigateTo(navigate);
   };
+
+  const menuItems = [
+    { text: "Dashboard", icon: <SpeedOutlinedIcon />, route: "/dashboard", id: 1 },
+    { text: "Projects", icon: <FeedOutlinedIcon />, route: "/Projects", id: 2 },
+    { text: "Specs", icon: <DvrOutlinedIcon />, route: "/spec/", id: 3 },
+    { text: "Add User", icon: <PermIdentityOutlinedIcon />, id: 4 },
+    { text: "Messages", icon: <MessageOutlinedIcon />, route: "/messages", id: 5 },
+  ];
+
   return (
     <Drawer
       variant="permanent"
@@ -37,80 +45,28 @@ const Sidebar = () => {
       }}
     >
       <div style={{ flex: 1 }}>
-        <List>
+          <List>
           <div style={{ height: "8vh" }}> </div>
-          <ListItemSpaciel
-            text="Dashboard"
-            bgcolor={selectedButton === 1 ? "#F6C927" : "#121231"}
-            svg={
-              <SpeedOutlinedIcon
-                sx={{ color: "white", width: "20px", height: "18px" }}
-              ></SpeedOutlinedIcon>
-            }
-            onClick={() => handleButtonClick(1, "/dashboard")}
-          />
-          <ListItemSpaciel
-            text="Projects"
-            bgcolor={selectedButton === 2 ? "#F6C927" : "#121231"}
-            svg={
-              <FeedOutlinedIcon
-                sx={{ color: "white", width: "20px", height: "18px" }}
-              ></FeedOutlinedIcon>
-            }
-            onClick={() => handleButtonClick(2, "/Projects")}
-          />
-          <ListItemSpaciel
-            text="Specs"
-            bgcolor={selectedButton === 3 ? "#F6C927" : "#121231"}
-            svg={
-              <DvrOutlinedIcon
-                sx={{ color: "white", width: "20px", height: "18px" }}
-              />
-            }
-            onClick={() => handleButtonClick(3,'/spec/')}
-          />
-          <ListItemSpaciel
-            text="Add User"
-            bgcolor={selectedButton === 4 ? "#F6C927" : "#121231"}
-            svg={
-              <PermIdentityOutlinedIcon
-                sx={{ color: "white", width: "20px", height: "18px" }}
-              ></PermIdentityOutlinedIcon>
-            }
-            onClick={() => handleButtonClick(4)}
-          />
-          <ListItemSpaciel
-            text="Messages"
-            bgcolor={selectedButton === 5 ? "#F6C927" : "#121231"}
-            svg={
-              <MessageOutlinedIcon
-                sx={{ color: "white", width: "20px", height: "18px" }}
-              ></MessageOutlinedIcon>
-            }
-            onClick={() => handleButtonClick(5, '/messages')}
-          />
+          {menuItems.map((item) => (
+            <CustomListItem
+              key={item.id}
+              text={item.text}
+              backgroundColor={selectedButton === item.id ? "#F6C927" : "#121231"}
+              icon={item.icon}
+              onClick={() => handleButtonClick(item.id, item.route)}
+            />
+          ))}
         </List>
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-end",
-        }}
-      >
-        {/* Second flex container with two buttons */}
+      <div>
         <List>
-          <ListItemSpaciel
+          <CustomListItem
             text="Settings"
-            svg={
-              <SettingsOutlinedIcon
-                sx={{ color: "white" }}
-              ></SettingsOutlinedIcon>
-            }
+            icon={<SettingsOutlinedIcon sx={{ color: "white" }} />}
           />
-          <ListItemSpaciel
+          <CustomListItem
             text="Info"
-            svg={<InfoOutlinedIcon sx={{ color: "white" }}></InfoOutlinedIcon>}
+            icon={<InfoOutlinedIcon sx={{ color: "white" }} />}
           />
         </List>
       </div>
