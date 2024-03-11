@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     borderRadius: "10px",
     zIndex: 1000,
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       "& .bell-icon": {
         display: "none",
       },
@@ -41,6 +41,13 @@ const useStyles = makeStyles((theme) => ({
       },
       justifyContent: "flex-end",
       width: "120px",
+    },
+    [theme.breakpoints.down("sm")]: {
+      "& .userInfo": {
+        display: "none",
+      },
+    justifyContent: "flex-center",
+    width: "60px",
     },
   },
   userInfo: {
@@ -109,8 +116,6 @@ const UserMenu = () => {
         if (response.status !== 200) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        console.log(response.data);
-
         const { firstName, lastName, title } = response.data.result[0];
         let profilePicture = null;
 
@@ -132,7 +137,7 @@ const UserMenu = () => {
 
   return (
     <div className={classes.root}>
-      <div className={classes.userInfo}>
+      <div className={`userInfo ${classes.userInfo}`}>
         <Avatar>
           {profileData.profilePicture ? (
             <img
