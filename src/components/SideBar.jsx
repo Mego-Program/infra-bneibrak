@@ -37,7 +37,7 @@ const Sidebar = () => {
           flexDirection: "column",
           height: "100vh",
           width: "17%",
-          minWidth: "180px",
+          minWidth: "64px",
           backgroundColor: "#121231",
           color: "white",
           flexGrow: "inherit",
