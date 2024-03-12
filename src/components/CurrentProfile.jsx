@@ -96,7 +96,7 @@ const CurrentProfile = () => {
     fetchProfileData();
   }, []);
 
-  if(isLoaded) return (
+  if (isLoaded) return (
     <CircularColor />
   )
 

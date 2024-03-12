@@ -47,7 +47,7 @@ const UpdateProfile = () => {
   const [errors, setErrors] = useState("");
   const [success, setSuccess] = useState("");
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
