@@ -22,7 +22,6 @@ const CurrentProfile = () => {
   const navigateTo = useNavigate();
 
   const [profileData, setProfileData] = useState({});
-  const [error, setError] = useState(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [isFileInputVisible, setFileInputVisible] = useState(false);
@@ -112,7 +111,7 @@ const CurrentProfile = () => {
     return firstInitial.toUpperCase();
   };
   
-  if(!isLoaded){
+  if (!isLoaded){
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
